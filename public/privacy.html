@@ -41,52 +41,41 @@
     <p><em>Last Updated: September 3, 2025</em></p>
     <section id="introduction">
         <h2>Introduction</h2>
-        <p>Welcome to MaBook ("we," "us," or "our"). This Privacy Policy explains how we handle your information when you use our AI-powered book recommendation service (the "Service"). Our goal is to provide you with personalized recommendations while respecting your privacy.</p>
+        <p>Welcome to MaBook ("we," "us," or "our"). We are committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our AI-powered book recommendation service (the "Service").</p>
     </section>
     <section id="information-collection">
         <h2>Information We Collect</h2>
-        <p>We do not require user accounts and do not collect traditional personal data like your name, email address, or IP address. The information we handle is limited to what is necessary to provide the Service:</p>
-        <ul>
-            <li><strong>Your Prompt:</strong> We collect the text query you submit to find book recommendations. We strongly advise you not to include any sensitive personal information (your name, address, etc.) in your prompts.</li>
-            <li><strong>Derived Information:</strong> As part of processing your request, our system automatically derives related information, such as the language of your prompt and the book genres it pertains to.</li>
-        </ul>
+        <p>We believe in data minimization. Our Service does not require you to create an account, and we do not collect any personal information like your name, email address, or IP address.</p>
+        <p>The only information we process is the <strong>User Prompt</strong>: the text query you voluntarily submit to our search box to receive a book recommendation. We strongly advise you not to include any sensitive personal data in your prompts.</p>
     </section>
     <section id="information-use">
         <h2>How We Use Your Information</h2>
-        <p>Your information is used exclusively to power the recommendation engine. This is a multi-step process where your prompt is analyzed to provide the most relevant results:</p>
+        <p>Your prompt is used exclusively to generate a book recommendation in a single session. This is an automated, multi-step process:</p>
         <ol>
-            <li><strong>Language Detection:</strong> We first send your prompt to our AI provider (Groq) to determine if it is written in English or Indonesian.</li>
-            <li><strong>Genre Analysis:</strong> The prompt is then analyzed by the AI to identify the most relevant book genres from our available list.</li>
-            <li><strong>Database Search:</strong> We use these genres to query our book database (hosted on Supabase) to find matching books.</li>
-            <li><strong>Highlight Ranking:</strong> Key highlights from the retrieved books are sent back to the AI, along with your original prompt, to rank them based on relevance.</li>
-            <li><strong>Translation:</strong> If your prompt was in Indonesian, the top-ranked (originally English) highlights are translated by the AI to match your language.</li>
+            <li>Your prompt is sent to an AI service (Groq) to determine its language and identify relevant book genres.</li>
+            <li>We use these genres to find matching books from our database (hosted on Supabase).</li>
+            <li>Highlights from those books are sent back to the AI, along with your original prompt, to be ranked for relevance and translated if necessary.</li>
         </ol>
-        <p>This entire process is automated and is designed to deliver personalized recommendations without us needing to know who you are.</p>
     </section>
     <section id="information-sharing">
-        <h2>Information Sharing and Third Parties</h2>
-        <p>We do not sell or rent your information. To operate our Service, we share your prompt with the following third-party services:</p>
-        <ul>
-            <li><strong>Groq:</strong> Our AI provider that handles the analysis, ranking, and translation tasks mentioned above.</li>
-            <li><strong>Supabase:</strong> Our database provider where our book data (titles, authors, highlights) is stored and retrieved.</li>
-        </ul>
-        <p>These providers have their own privacy policies governing how they handle data. We have chosen them for their robust infrastructure and commitment to security.</p>
+        <h2>Information Sharing</h2>
+        <p>To provide our Service, your prompt is shared with our third-party AI provider, Groq, for processing. We do not sell, rent, or share your prompts with any other third parties.</p>
     </section>
     <section id="data-retention">
         <h2>Data Retention</h2>
-        <p><strong>Currently, we do not store or log your prompts on our servers after a recommendation has been provided.</strong> Each session is stateless. We may decide to store prompts in the future to improve our Service. If this practice changes, we will update this Privacy Policy accordingly.</p>
+        <p><strong>We do not store your prompts in our database.</strong> All processing is done in real-time, and your query is forgotten by our system as soon as your session ends.</p>
     </section>
     <section id="data-security">
         <h2>Data Security</h2>
-        <p>We implement reasonable technical measures to secure the data transmitted through our Service. However, please be aware that no method of transmission over the Internet is 100% secure.</p>
+        <p>We implement reasonable security measures to protect the information during transmission. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee its absolute security.</p>
     </section>
     <section id="childrens-privacy">
         <h2>Children's Privacy</h2>
-        <p>Our Service is intended for a general audience. We do not knowingly collect any personally identifiable information from children under the age of 13. If you believe that your child has provided this kind of information on our website, we strongly encourage you to contact us immediately, and we will do our best to promptly remove such information from our records.</p>
+        <p>Our Service is available to a general audience. We do not knowingly collect any personally identifiable information from children under the age of 13. If you believe your child has provided us with information, please contact us, and we will take steps to remove it.</p>
     </section>
     <section id="contact-us">
-    <h2>Contact Us</h2>
-    <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mabook.official@gmail.com&su=I%20have%20a%20(complain%20here)%20at%20Privacy%20and%20Policy" target="_blank" rel="noopener noreferrer">mabook.official@gmail.com</a>.</p>
+        <h2>Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us at <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mabook.official@gmail.com" target="_blank" rel="noopener noreferrer">mabook.official@gmail.com</a>.</p>
     </section>
 </main>
     </div>
