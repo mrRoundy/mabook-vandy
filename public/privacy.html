@@ -15,13 +15,13 @@
     <div class="container">
         <a href="index.html" class="back-to-home-btn">← Back to Home</a>
     </div>
+
     <header class="policy-header">
         <div class="container">
             <h1>Privacy Policy</h1>
             <p>Your privacy is important to us. Here's how we handle your data.</p>
         </div>
     </header>
-
 
     <div class="container policy-layout">
         <aside class="policy-sidebar">
@@ -31,103 +31,62 @@
                     <li><a href="#information-collection" class="nav-link">Information We Collect</a></li>
                     <li><a href="#information-use" class="nav-link">How We Use Information</a></li>
                     <li><a href="#information-sharing" class="nav-link">Information Sharing</a></li>
+                    <li><a href="#data-retention" class="nav-link">Data Retention</a></li>
                     <li><a href="#data-security" class="nav-link">Data Security</a></li>
+                    <li><a href="#childrens-privacy" class="nav-link">Children's Privacy</a></li>
                     <li><a href="#contact-us" class="nav-link">Contact Us</a></li>
                 </ul>
             </nav>
         </aside>
 
-<main class="policy-content">
-    <p><em>Last Updated: September 3, 2025</em></p>
-    <section id="introduction">
-        <h2>Introduction</h2>
-        <p>Welcome to MaBook ("we," "us," or "our"). We are committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our AI-powered book recommendation service (the "Service").</p>
-    </section>
-    <section id="information-collection">
-        <h2>Information We Collect</h2>
-        <p>We believe in data minimization. Our Service does not require you to create an account, and we do not collect any personal information like your name, email address, or IP address.</p>
-        <p>The only information we process is the <strong>User Prompt</strong>: the text query you voluntarily submit to our search box to receive a book recommendation. We strongly advise you not to include any sensitive personal data in your prompts.</p>
-    </section>
-    <section id="information-use">
-        <h2>How We Use Your Information</h2>
-        <p>Your prompt is used exclusively to generate a book recommendation in a single session. This is an automated, multi-step process:</p>
-        <ol>
-            <li>Your prompt is sent to an AI service (Groq) to determine its language and identify relevant book genres.</li>
-            <li>We use these genres to find matching books from our database (hosted on Supabase).</li>
-            <li>Highlights from those books are sent back to the AI, along with your original prompt, to be ranked for relevance and translated if necessary.</li>
-        </ol>
-    </section>
-    <section id="information-sharing">
-        <h2>Information Sharing</h2>
-        <p>To provide our Service, your prompt is shared with our third-party AI provider, Groq, for processing. We do not sell, rent, or share your prompts with any other third parties.</p>
-    </section>
-    <section id="data-retention">
-        <h2>Data Retention</h2>
-        <p><strong>We do not store your prompts in our database.</strong> All processing is done in real-time, and your query is forgotten by our system as soon as your session ends.</p>
-    </section>
-    <section id="data-security">
-        <h2>Data Security</h2>
-        <p>We implement reasonable security measures to protect the information during transmission. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee its absolute security.</p>
-    </section>
-    <section id="childrens-privacy">
-        <h2>Children's Privacy</h2>
-        <p>Our Service is available to a general audience. We do not knowingly collect any personally identifiable information from children under the age of 13. If you believe your child has provided us with information, please contact us, and we will take steps to remove it.</p>
-    </section>
-    <section id="contact-us">
-    <h2>Contact Us</h2>
-    <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mabook.official@gmail.com&su=I%20have%20a%20(complain%20here)%20at%20Privacy%20and%20Policy" target="_blank" rel="noopener noreferrer">mabook.official@gmail.com</a>.</p>
-    </section>
-</main>
+        <main class="policy-content">
+            <p><em>Last Updated: September 3, 2025</em></p>
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Welcome to MaBook ("we," "us," or "our"). We are committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our AI-powered book recommendation service (the "Service").</p>
+            </section>
+            <section id="information-collection">
+                <h2>Information We Collect</h2>
+                <p>We believe in data minimization. Our Service does not require you to create an account, and we do not collect any personal information like your name, email address, or IP address.</p>
+                <p>The only information we process is the <strong>User Prompt</strong>: the text query you voluntarily submit to our search box to receive a book recommendation. We strongly advise you not to include any sensitive personal data in your prompts.</p>
+            </section>
+            <section id="information-use">
+                <h2>How We Use Your Information</h2>
+                <p>Your prompt is used exclusively to generate a book recommendation in a single session. This is an automated, multi-step process:</p>
+                <ol>
+                    <li>Your prompt is sent to a third-party AI service to determine its language and identify relevant book genres.</li>
+                    <li>We use these genres to find matching books from our database.</li>
+                    <li>Highlights from those books are sent back to the AI, along with your original prompt, to be ranked for relevance and translated if necessary.</li>
+                </ol>
+            </section>
+            <section id="information-sharing">
+                <h2>Information Sharing and Third Parties</h2>
+                <p>To provide our Service, your prompt is shared with our third-party AI provider for processing. We do not sell, rent, or share your prompts with any other third parties.</p>
+            </section>
+            
+            <section id="data-retention">
+                <h2>Data Retention</h2>
+                <p><strong>Currently, we do not store your prompts after your session ends.</strong> However, to make our AI smarter and more helpful, we plan to save prompts in the future. This will allow us to use feedback to improve the quality of our recommendations. If our data handling practices change, we will update this policy.</p>
+            </section>
+            
+            <section id="data-security">
+                <h2>Data Security</h2>
+                <p>We implement reasonable security measures to protect the information during transmission. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee its absolute security.</p>
+            </section>
+            <section id="childrens-privacy">
+                <h2>Children's Privacy</h2>
+                <p>Our Service is available to a general audience. We do not knowingly collect any personally identifiable information from children under the age of 13. If you believe your child has provided us with information, please contact us, and we will take steps to remove it.</p>
+            </section>
+            <section id="contact-us">
+                <h2>Contact Us</h2>
+                <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mabook.official@gmail.com&su=I%20have%20a%20(complain%20here)%20at%20Privacy%20and%20Policy" target="_blank" rel="noopener noreferrer">mabook.official@gmail.com</a>.</p>
+                </section>
+        </main>
     </div>
 
     <div id="footer-container"></div>
 
 <script src="componentLoader.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- SCROLL FIX ---
-    setTimeout(() => {
-        document.body.style.overflow = 'auto';
-    }, 500);
-
-    const sections = document.querySelectorAll('.policy-content section');
-    const navLinks = document.querySelectorAll('.policy-sidebar .nav-link');
-
-    // --- BROWSER HISTORY FIX ---
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // 1. Prevent the default link behavior (stops URL from changing)
-            e.preventDefault();
-
-            // 2. Find the target section
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-
-            // 3. Scroll to the section without changing the URL
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // --- SCROLLSPY TO HIGHLIGHT ACTIVE LINK ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').substring(1) === entry.target.id) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }, { rootMargin: '-30% 0px -70% 0px' });
-
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-});
-</script>
+<script src="policy.js"></script>
 </body>
 </html>
