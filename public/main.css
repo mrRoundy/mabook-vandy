@@ -517,21 +517,21 @@ p {
 
 
 
-/* --- Back to Home Button --- */
-.back-to-home-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 100px; /* Pushes the button below the fixed navbar */
-    margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.7); /* Using the secondary text color for the background */
-    color: var(--primary-bg);
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 50px;
-    transition: background-color 0.3s, transform 0.3s;
+/* --- Back to Home Image Button --- */
+.back-nav {
+    position: absolute;
+    top: 5rem;
+    left: 10rem;
+    z-index: 200; /* High z-index to be on top of other elements */
 }
 
-.back-to-home-btn:hover {
-    background-color: var(--text-light); /* Make it brighter on hover */
-    transform: scale(1.05);
+.back-nav img {
+    height: 50px; /* You can adjust this size */
+    width: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.back-nav img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
 }

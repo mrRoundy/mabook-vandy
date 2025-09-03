@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 3. Scroll to the section smoothly.
             if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
+                // By adding "block: 'center'", the section will be scrolled to the middle of the screen.
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
     });
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinks.forEach(link => {
                     // Remove 'active' class from all links.
                     link.classList.remove('active');
-                    
+
                     // Add 'active' class to the link that matches the visible section.
                     // The substring(1) removes the '#' from the href attribute.
                     if (link.getAttribute('href').substring(1) === activeId) {
@@ -51,8 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { 
-        // This margin makes the link become active when a section is in the middle of the screen, not just at the very top or bottom.
-        rootMargin: '-30% 0px -70% 0px' 
+        // ===== START: THIS IS THE UPDATED LINE =====
+        // This new rootMargin creates a horizontal detection zone in the middle of the screen.
+        rootMargin: '-45% 0px -45% 0px' 
+        // ===== END: THIS IS THE UPDATED LINE =====
     });
 
     // Tell the observer to watch every section.
