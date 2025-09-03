@@ -426,9 +426,15 @@ p {
 .policy-layout {
     display: grid;
     grid-template-columns: 220px 1fr;
-    gap: 4rem;
+    gap: 3rem; /* Reduced the gap slightly */
     padding-top: 40px;
     padding-bottom: 80px;
+
+    /* --- Changes for a wider layout --- */
+    max-width: 1440px; /* Increased from 1200px to make the container wider */
+    margin: 0 auto;    /* This keeps the new wider layout centered */
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .policy-sidebar {
@@ -513,6 +519,10 @@ p {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
+    .back-nav {
+    top: 1rem;
+    left: 1rem;
+    }
 }
 
 
@@ -520,18 +530,40 @@ p {
 /* --- Back to Home Image Button --- */
 .back-nav {
     position: absolute;
-    top: 5rem;
-    left: 10rem;
-    z-index: 200; /* High z-index to be on top of other elements */
+    top: 2rem;
+    left: 2rem;
+    z-index: 200;
+    text-decoration: none; /* Removes underline from the link */
 }
 
-.back-nav img {
-    height: 50px; /* You can adjust this size */
-    width: auto;
+/* Use Flexbox to align the image and text */
+.back-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Adds a small space between the image and text */
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.back-nav img:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
+.back-nav img {
+    height: 40px; /* Slightly smaller to fit text nicely */
+    width: auto;
+}
+
+/* Style for the "Go Back" text */
+.back-nav span {
+    color: var(--text-light); /* Or choose another color */
+    font-weight: bold;
+    font-size: 1rem;
+    white-space: nowrap; /* This is the key to preventing the text from wrapping */
+    opacity: 0; /* Hide the text by default */
+    transition: opacity 0.3s ease;
+}
+
+/* Show the text and animate the link on hover */
+.back-nav:hover a {
+    transform: scale(1.05);
+}
+
+.back-nav:hover span {
+    opacity: 1; /* Reveal the text on hover */
 }

@@ -8,58 +8,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.policy-content section');
     const navLinks = document.querySelectorAll('.policy-sidebar .nav-link');
 
-    if (navLinks.length === 0 || sections.length === 0) {
-        // Do nothing if the required elements aren't on the page.
-        return;
+    if (navLinks.length > 0 && sections.length > 0) {
+        // --- SMOOTH SCROLL & BROWSER HISTORY FIX ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+
+        // --- SCROLLSPY TO HIGHLIGHT ACTIVE LINK ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.id;
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === activeId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { 
+            rootMargin: '-45% 0px -45% 0px' 
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
     }
 
-    // --- SMOOTH SCROLL & BROWSER HISTORY FIX ---
-    // This makes the page scroll smoothly when a link is clicked, without adding to the browser's back-button history.
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // 1. Prevent the default link behavior (stops the URL from changing instantly).
-            e.preventDefault();
+    // --- RANDOMIZED CONTACT US LINK ---
+    const contactLink = document.querySelector('.contact-link');
+    if (contactLink) {
+        let subjects = []; // Empty array to hold the subjects
+        const currentPage = window.location.pathname;
 
-            // 2. Find the target section using the link's href.
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
+        // Check which page is currently open and set the relevant subjects
+        if (currentPage.includes('privacy.html')) {
+            subjects = [
+                "Question About My Data",
+                "Inquiry About Information Collection",
+                "Concerns Regarding the Privacy Policy",
+                "How is My Prompt Used?",
+                "Feedback on Data Handling"
+            ];
+        } else if (currentPage.includes('terms.html')) {
+            subjects = [
+                "Question Regarding the Terms of Service",
+                "Clarification on Service Usage",
+                "Inquiry About Prohibited Use",
+                "Feedback on the Terms",
+                "General Question about Service Rules"
+            ];
+        } else {
+            // Fallback for any other pages
+            subjects = ["General Inquiry about MaBook"];
+        }
 
-            // 3. Scroll to the section smoothly.
-            if (targetSection) {
-                // By adding "block: 'center'", the section will be scrolled to the middle of the screen.
-                targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+        contactLink.addEventListener('click', function(e) {
+            e.preventDefault(); // Stop the link from navigating to "#"
+
+            // 1. Pick a random subject from the correct list
+            const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+            
+            // 2. Encode the subject for the URL
+            const encodedSubject = encodeURIComponent(randomSubject);
+
+            // 3. Build the final Gmail link
+            const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=mabook.official@gmail.com&su=${encodedSubject}`;
+            
+            // 4. Open the link in a new tab
+            window.open(gmailLink, '_blank');
         });
-    });
-
-    // --- SCROLLSPY TO HIGHLIGHT ACTIVE LINK ---
-    // This watches which section is visible on the screen and applies an 'active' class to the corresponding sidebar link.
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const activeId = entry.target.id;
-                
-                navLinks.forEach(link => {
-                    // Remove 'active' class from all links.
-                    link.classList.remove('active');
-
-                    // Add 'active' class to the link that matches the visible section.
-                    // The substring(1) removes the '#' from the href attribute.
-                    if (link.getAttribute('href').substring(1) === activeId) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }, { 
-        // ===== START: THIS IS THE UPDATED LINE =====
-        // This new rootMargin creates a horizontal detection zone in the middle of the screen.
-        rootMargin: '-45% 0px -45% 0px' 
-        // ===== END: THIS IS THE UPDATED LINE =====
-    });
-
-    // Tell the observer to watch every section.
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    }
 });
