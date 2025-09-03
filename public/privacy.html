@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - MaBook</title>
+    <link href="main.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="navbar-container"></div>
+
+    <div class="container">
+        <a href="index.html" class="back-to-home-btn">← Back to Home</a>
+    </div>
+    <header class="policy-header">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy is important to us. Here's how we handle your data.</p>
+        </div>
+    </header>
+
+
+    <div class="container policy-layout">
+        <aside class="policy-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#introduction" class="nav-link">Introduction</a></li>
+                    <li><a href="#information-collection" class="nav-link">Information We Collect</a></li>
+                    <li><a href="#information-use" class="nav-link">How We Use Information</a></li>
+                    <li><a href="#information-sharing" class="nav-link">Information Sharing</a></li>
+                    <li><a href="#data-security" class="nav-link">Data Security</a></li>
+                    <li><a href="#contact-us" class="nav-link">Contact Us</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+<main class="policy-content">
+    <p><em>Last Updated: September 3, 2025</em></p>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>Welcome to MaBook ("we," "us," or "our"). This Privacy Policy explains how we handle your information when you use our AI-powered book recommendation service (the "Service"). Our goal is to provide you with personalized recommendations while respecting your privacy.</p>
+    </section>
+    <section id="information-collection">
+        <h2>Information We Collect</h2>
+        <p>We do not require user accounts and do not collect traditional personal data like your name, email address, or IP address. The information we handle is limited to what is necessary to provide the Service:</p>
+        <ul>
+            <li><strong>Your Prompt:</strong> We collect the text query you submit to find book recommendations. We strongly advise you not to include any sensitive personal information (your name, address, etc.) in your prompts.</li>
+            <li><strong>Derived Information:</strong> As part of processing your request, our system automatically derives related information, such as the language of your prompt and the book genres it pertains to.</li>
+        </ul>
+    </section>
+    <section id="information-use">
+        <h2>How We Use Your Information</h2>
+        <p>Your information is used exclusively to power the recommendation engine. This is a multi-step process where your prompt is analyzed to provide the most relevant results:</p>
+        <ol>
+            <li><strong>Language Detection:</strong> We first send your prompt to our AI provider (Groq) to determine if it is written in English or Indonesian.</li>
+            <li><strong>Genre Analysis:</strong> The prompt is then analyzed by the AI to identify the most relevant book genres from our available list.</li>
+            <li><strong>Database Search:</strong> We use these genres to query our book database (hosted on Supabase) to find matching books.</li>
+            <li><strong>Highlight Ranking:</strong> Key highlights from the retrieved books are sent back to the AI, along with your original prompt, to rank them based on relevance.</li>
+            <li><strong>Translation:</strong> If your prompt was in Indonesian, the top-ranked (originally English) highlights are translated by the AI to match your language.</li>
+        </ol>
+        <p>This entire process is automated and is designed to deliver personalized recommendations without us needing to know who you are.</p>
+    </section>
+    <section id="information-sharing">
+        <h2>Information Sharing and Third Parties</h2>
+        <p>We do not sell or rent your information. To operate our Service, we share your prompt with the following third-party services:</p>
+        <ul>
+            <li><strong>Groq:</strong> Our AI provider that handles the analysis, ranking, and translation tasks mentioned above.</li>
+            <li><strong>Supabase:</strong> Our database provider where our book data (titles, authors, highlights) is stored and retrieved.</li>
+        </ul>
+        <p>These providers have their own privacy policies governing how they handle data. We have chosen them for their robust infrastructure and commitment to security.</p>
+    </section>
+    <section id="data-retention">
+        <h2>Data Retention</h2>
+        <p><strong>Currently, we do not store or log your prompts on our servers after a recommendation has been provided.</strong> Each session is stateless. We may decide to store prompts in the future to improve our Service. If this practice changes, we will update this Privacy Policy accordingly.</p>
+    </section>
+    <section id="data-security">
+        <h2>Data Security</h2>
+        <p>We implement reasonable technical measures to secure the data transmitted through our Service. However, please be aware that no method of transmission over the Internet is 100% secure.</p>
+    </section>
+    <section id="childrens-privacy">
+        <h2>Children's Privacy</h2>
+        <p>Our Service is intended for a general audience. We do not knowingly collect any personally identifiable information from children under the age of 13. If you believe that your child has provided this kind of information on our website, we strongly encourage you to contact us immediately, and we will do our best to promptly remove such information from our records.</p>
+    </section>
+    <section id="contact-us">
+    <h2>Contact Us</h2>
+    <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mabook.official@gmail.com&su=I%20have%20a%20(complain%20here)%20at%20Privacy%20and%20Policy" target="_blank" rel="noopener noreferrer">mabook.official@gmail.com</a>.</p>
+    </section>
+</main>
+    </div>
+
+    <div id="footer-container"></div>
+
+<script src="componentLoader.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- SCROLL FIX ---
+    setTimeout(() => {
+        document.body.style.overflow = 'auto';
+    }, 500);
+
+    const sections = document.querySelectorAll('.policy-content section');
+    const navLinks = document.querySelectorAll('.policy-sidebar .nav-link');
+
+    // --- BROWSER HISTORY FIX ---
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // 1. Prevent the default link behavior (stops URL from changing)
+            e.preventDefault();
+
+            // 2. Find the target section
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            // 3. Scroll to the section without changing the URL
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // --- SCROLLSPY TO HIGHLIGHT ACTIVE LINK ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === entry.target.id) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-30% 0px -70% 0px' });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+</body>
+</html>

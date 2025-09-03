@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaBook</title>
+    <link href="main.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="navbar-container"></div>
+
+    <main>
+        <div id="hero-container"></div>
+        <div id="library-container"></div>
+    </main>
+
+    <div id="footer-container"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- ADD THIS TIMER CODE ---
+        setTimeout(() => {
+            const tryNowLink = document.querySelector('.cta-button-inactive');
+            if (tryNowLink) {
+                // This removes the inactive styles, enabling the button
+                tryNowLink.classList.remove('cta-button-inactive');
+            }
+        }, 3000); // 5000 milliseconds = 5 seconds
+        // --- END OF NEW CODE ---
+
+        // This is your other existing code
+        setTimeout(() => {
+            document.body.style.overflow = 'auto';
+            const header = document.querySelector('.site-header');
+            if (header) {
+                header.style.pointerEvents = 'auto';
+            }
+        }, 3000);
+
+        loadComponent('navbar.html', 'navbar-container');
+        loadComponent('hero.html', 'hero-container');
+        loadComponent('library.html', 'library-container');
+        
+        // Updated call to load footer and run script to set the year
+        loadComponent('footer.html', 'footer-container', () => {
+            const yearSpan = document.getElementById('footer-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    });
+
+    // Updated function to handle the callback for the footer script
+    const loadComponent = (url, elementId, callback) => {
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(elementId).innerHTML = data;
+                // Initialize the navbar script after loading the navbar
+                if (elementId === 'navbar-container') {
+                    initializeNavbar();
+                }
+                // If a callback function was provided, run it
+                if (callback) {
+                    callback();
+                }
+            })
+            .catch(error => console.error('Error loading component:', error));
+    };
+
+   // Function to initialize the navbar script
+    const initializeNavbar = () => {
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const capsule = document.querySelector('.nav-links .nav-capsule');
+        
+        // A flag to prevent the scroll listener from running while a click-scroll is happening
+        let isClickScrolling = false;
+        let scrollTimeout;
+
+        // Function to move the capsule
+        function moveCapsule(target) {
+            if (!target) return;
+            capsule.style.width = `${target.offsetWidth}px`;
+            capsule.style.left = `${target.offsetLeft}px`;
+
+            navLinks.forEach(link => link.classList.remove('active'));
+            target.classList.add('active');
+        }
+
+        // Initial position on page load, with a timeout for stability
+        setTimeout(() => {
+            const initialActiveLink = document.querySelector('.nav-links a.active') || navLinks[0];
+            moveCapsule(initialActiveLink);
+        }, 100);
+
+        // Add click listeners to all nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                moveCapsule(e.target);
+
+                isClickScrolling = true;
+
+                const targetSection = document.querySelector(e.target.getAttribute('href'));
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isClickScrolling = false;
+                }, 1000);
+            });
+        });
+
+        // Add the scroll listener
+        window.addEventListener('scroll', () => {
+            if (isClickScrolling) {
+                return;
+            }
+
+            // --- KEY CHANGE IS HERE ---
+            // Get the sections and their positions INSIDE the scroll event.
+            // This ensures they exist and their positions are up-to-date.
+            const sections = Array.from(navLinks)
+                .map(link => {
+                    const href = link.getAttribute('href');
+                    return href.startsWith('#') ? document.querySelector(href) : null;
+                })
+                .filter(Boolean);
+
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - (window.innerHeight / 3)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            const activeLink = document.querySelector(`.nav-links a[href="#${currentSectionId}"]`);
+            // Only move the capsule if the active link is not already the one being displayed
+            if (activeLink && !activeLink.classList.contains('active')) {
+                moveCapsule(activeLink);
+            }
+        });
+    };
+</script>
+</body>
+</html>

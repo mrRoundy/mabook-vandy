@@ -1,0 +1,537 @@
+/* --- Google Font Imports (from original HTML) --- */
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Segoe+UI&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+
+/* --- CSS Variables --- */
+:root {
+    --primary-bg: #000000;
+    --text-light: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --card-bg: #ffffff;
+    --text-dark: #000000;
+    --highlight-red: #d9534f;
+    --gradient-purple: #bc7bdf;
+    --gradient-blue: #68d6ec;
+}
+
+/* --- General Styles & Reset --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    
+    overflow-y: hidden; /* Prevent horizontal scroll */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* --- Header & Navigation (with Sliding Capsule) --- */
+.site-header {
+    background: rgba(0, 0, 0, 0.5); /* black with 50% opacity */
+    backdrop-filter: blur(6px);     /* adds a frosted glass effect */
+    -webkit-backdrop-filter: blur(6px); /* Safari support */
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;               /* sticks to the topmost */
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeInDown 0.8s 2.7s ease-out forwards;
+    pointer-events: none; /* <-- Add this line to disable clicks initially */
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    position: relative; /* Crucial for positioning the capsule */
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 1rem;
+}
+
+/* This is the moving white capsule */
+.nav-links .nav-capsule {
+    position: absolute;
+    height: calc(100% + 8px); /* Makes the capsule taller */
+    top: -4px;                  /* Re-centers the taller capsule */
+    background-color: var(--text-light);
+    border-radius: 50px;
+    transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+}
+
+.nav-links li {
+    margin: 0;
+    z-index: 2; /* Ensures links are on top of the capsule */
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: color 0.4s ease;
+}
+
+/* When the capsule is behind a link, the JS makes its text black */
+.nav-links a.active {
+    color: var(--primary-bg);
+}
+
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: url('../images/v101_58.png') no-repeat center center; */ /* Using Atomic Habits as an example */
+    background-size: cover;
+    filter: blur(5px);
+    opacity: 0.2;
+    z-index: -2;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,1));
+    z-index: -1;
+}
+
+.hero-content h1 {
+    font-size: 12rem;
+    font-weight: bold;
+    color: var(--text-light);
+    opacity: 0; 
+    line-height: 1; /* This makes the line height equal to the font size */
+    margin-bottom: 0.1rem; /* You may want a very small margin with this method */
+    margin-top: 5rem; /* <-- Add this line to push the text down */
+    transition: font-size 0.3s ease-out;
+    animation: fadeInPauseThenFloat 3s 0.2s ease-in-out forwards;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    margin-top: -25px;
+    opacity: 0;
+    animation: fadeIn 0.5s 2.7s ease-out forwards;
+
+}
+
+.cta-button {
+    background-color: var(--text-light);
+    color: var(--text-dark);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s;
+    opacity: 0;
+    animation: fadeIn 0.5s 2.7s ease-out forwards;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+}
+.cta-button-inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* This is key to disabling the link */
+}
+
+.arrow-icon {
+    margin-left: 10px;
+}
+
+/* --- Discover Section --- */
+.discover-section {
+    padding: 80px 0;
+    background-image: linear-gradient(rgba(0,0,0,1), rgba(15, 1, 23, 1));
+}
+.discover-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+}
+.problem-text {
+    flex: 2;
+}
+.problem-text h2 {
+    font-size: 2.5rem;
+}
+.question-mark {
+    font-size: 15rem;
+    font-weight: bold;
+    color: var(--text-light);
+    flex: 1;
+    text-align: center;
+}
+
+.discover-cta {
+    text-align: center;
+    margin-top: 60px;
+}
+.discover-title {
+    font-size: 3rem;
+    background: -webkit-linear-gradient(var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.discover-cta p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 1rem auto;
+    color: var(--text-secondary);
+}
+
+
+/* --- Features Section --- */
+.features-section {
+    padding: 80px 0;
+    background-image: url('../images/grid-background.png'); /* You might need to create a subtle grid image */
+    background-color: #1a1a1a;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    color: var(--text-dark);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.feature-card .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    color: var(--highlight-red);
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Simple hiding for demo; a full solution would use a hamburger menu */
+    }
+    .hero-content h1 {
+        font-size: 7rem;
+    }
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+    .discover-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-column ul {
+        list-style-position: inside;
+    }
+}
+/*-- Animations ---*/
+@keyframes fadeInPauseThenFloat {
+    /* Stage 1: Fade-in (0% to 40%) */
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Stage 2: Pause (40% to 60%) */
+    /* By having the same styles as 40%, the element holds its position */
+    60% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Stage 3: Float up (60% to 100%) */
+    100% {
+        opacity: 1;
+        transform: translateY(calc(-10vh + 20px)) scale(0.95);
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px); /* Optional: makes the text slide up slightly */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- New Site Footer Styles --- */
+.site-footer {
+    background-color: #000000;
+    color: var(--text-light);
+    padding: 1.5rem 0; /* Reduced padding for a thinner bar */
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Optional: adds a subtle top border */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 1.5rem;
+    padding: 0 2rem; /* ADD THIS LINE */
+}
+
+.footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; /* Slightly smaller for the new layout */
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.footer-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.footer-info a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-info a:hover {
+    color: var(--text-light);
+    text-decoration: underline;
+}
+
+.footer-info .separator {
+    margin: 0 0.5rem; /* Adds space around the "|" separators */
+}
+
+/* --- Responsive styles for the new footer --- */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stacks brand and info vertically */
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+
+
+
+
+/* --- Policy Page Layout & Styles --- */
+.policy-header {
+    padding: 80px 0 40px 0;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--primary-bg) 90%);
+}
+.policy-header h1 {
+    font-size: 4rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+.policy-header p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.policy-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 4rem;
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.policy-sidebar {
+    position: sticky;
+    top: 120px; /* Adjust based on your fixed header height */
+    align-self: start; /* Aligns to the top of the grid cell */
+    height: calc(100vh - 140px);
+}
+.policy-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+.policy-sidebar nav li {
+    margin-bottom: 1rem;
+}
+.policy-sidebar nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    border-left: 3px solid transparent;
+}
+.policy-sidebar nav a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+}
+.policy-sidebar nav a.active {
+    color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--gradient-blue);
+}
+
+.policy-content section {
+    margin-bottom: 3rem;
+    padding-top: 20px; /* Offset for scrollspy */
+    min-height: 200px;
+}
+.policy-content h2 {
+    font-size: 2rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.policy-content p, .policy-content ul {
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+}
+.policy-content ul {
+    padding-left: 20px;
+}
+.policy-content li {
+    margin-bottom: 0.75rem;
+}
+.policy-content a {
+    color: var(--gradient-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+.policy-content a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .policy-layout {
+        grid-template-columns: 1fr;
+    }
+    .policy-sidebar {
+        position: static;
+        height: auto;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1rem;
+    }
+    .policy-sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+
+
+/* --- Back to Home Button --- */
+.back-to-home-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 100px; /* Pushes the button below the fixed navbar */
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Using the secondary text color for the background */
+    color: var(--primary-bg);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-home-btn:hover {
+    background-color: var(--text-light); /* Make it brighter on hover */
+    transform: scale(1.05);
+}
