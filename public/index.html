@@ -11,7 +11,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="landing-page">
 
     <div id="navbar-container"></div>
 
@@ -24,6 +24,11 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // ===== START: ADD THIS LINE =====
+        // Force the body to hide overflow for the animation on the landing page
+        document.body.style.overflow = 'hidden';
+        // ===== END: ADD THIS LINE =====
+
         // --- ADD THIS TIMER CODE ---
         setTimeout(() => {
             const tryNowLink = document.querySelector('.cta-button-inactive');
@@ -43,7 +48,7 @@
             }
         }, 3000);
 
-        loadComponent('navbar.html', 'navbar-container');
+        loadComponent('navbar.html', 'navbar-container', initializeNavbar);
         loadComponent('hero.html', 'hero-container');
         loadComponent('library.html', 'library-container');
         
@@ -57,14 +62,17 @@
     });
 
     // Updated function to handle the callback for the footer script
-    const loadComponent = (url, elementId, callback) => {
+    function loadComponent(url, elementId, callback) {
         fetch(url)
             .then(response => response.text())
             .then(data => {
                 document.getElementById(elementId).innerHTML = data;
                 // Initialize the navbar script after loading the navbar
                 if (elementId === 'navbar-container') {
-                    initializeNavbar();
+                    // Call initializeNavbar only if it's defined
+                    if (typeof initializeNavbar === 'function') {
+                        initializeNavbar();
+                    }
                 }
                 // If a callback function was provided, run it
                 if (callback) {
@@ -75,15 +83,13 @@
     };
 
    // Function to initialize the navbar script
-    const initializeNavbar = () => {
+    function initializeNavbar() {
         const navLinks = document.querySelectorAll('.nav-links a');
         const capsule = document.querySelector('.nav-links .nav-capsule');
         
-        // A flag to prevent the scroll listener from running while a click-scroll is happening
         let isClickScrolling = false;
         let scrollTimeout;
 
-        // Function to move the capsule
         function moveCapsule(target) {
             if (!target) return;
             capsule.style.width = `${target.offsetWidth}px`;
@@ -93,41 +99,30 @@
             target.classList.add('active');
         }
 
-        // Initial position on page load, with a timeout for stability
         setTimeout(() => {
             const initialActiveLink = document.querySelector('.nav-links a.active') || navLinks[0];
             moveCapsule(initialActiveLink);
         }, 100);
 
-        // Add click listeners to all nav links
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 moveCapsule(e.target);
-
                 isClickScrolling = true;
-
                 const targetSection = document.querySelector(e.target.getAttribute('href'));
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth' });
                 }
-                
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    isClickScrolling = false;
-                }, 1000);
+                scrollTimeout = setTimeout(() => { isClickScrolling = false; }, 1000);
             });
         });
 
-        // Add the scroll listener
         window.addEventListener('scroll', () => {
             if (isClickScrolling) {
                 return;
             }
 
-            // --- KEY CHANGE IS HERE ---
-            // Get the sections and their positions INSIDE the scroll event.
-            // This ensures they exist and their positions are up-to-date.
             const sections = Array.from(navLinks)
                 .map(link => {
                     const href = link.getAttribute('href');
@@ -144,7 +139,6 @@
             });
 
             const activeLink = document.querySelector(`.nav-links a[href="#${currentSectionId}"]`);
-            // Only move the capsule if the active link is not already the one being displayed
             if (activeLink && !activeLink.classList.contains('active')) {
                 moveCapsule(activeLink);
             }
