@@ -26,13 +26,15 @@ html {
     scroll-behavior: smooth;
 }
 
+body.landing-page {
+    overflow-y: hidden;
+}
+
 body {
-    font-family: 'Segoe UI', sans-serif;
     background-color: var(--primary-bg);
-    color: var(--text-light);
-    line-height: 1.6;
-    
-    overflow-y: hidden; /* Prevent horizontal scroll */
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s ease;
 }
 
 .container {
@@ -439,9 +441,18 @@ p {
 
 .policy-sidebar {
     position: sticky;
-    top: 120px; /* Adjust based on your fixed header height */
-    align-self: start; /* Aligns to the top of the grid cell */
-    height: calc(100vh - 140px);
+    /* This positions the sidebar below the "Go Back" button */
+    top: 7rem; 
+    align-self: start;
+    
+    /* This adds a scrollbar ONLY when the list of links is too tall for the screen */
+    overflow-y: auto; 
+    
+    /* This sets the max height to prevent it from running off the bottom of the screen */
+    max-height: calc(100vh - 8rem); 
+    
+    /* This adds a little space for the scrollbar so it doesn't overlap the link text */
+    padding-right: 1rem;
 }
 .policy-sidebar nav ul {
     list-style: none;
@@ -533,7 +544,6 @@ p {
     top: 2rem;
     left: 2rem;
     z-index: 200;
-    text-decoration: none; /* Removes underline from the link */
 }
 
 /* Use Flexbox to align the image and text */
@@ -542,6 +552,7 @@ p {
     align-items: center;
     gap: 0.5rem; /* Adds a small space between the image and text */
     transition: transform 0.3s ease, opacity 0.3s ease;
+    text-decoration: none; /* This removes the underline */
 }
 
 .back-nav img {
